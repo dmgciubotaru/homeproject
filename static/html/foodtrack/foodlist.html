@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Home Project{% endblock %}
+{% block content %}
+
+<div class="container">
+  <h1>
+    Food is here
+  </h1>
+  <div class="row">
+    <ol class="list-group list-group-numbered">
+      {% for food in foods %}
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold" data-bs-toggle="collapse" href="#ingredients{{food.name.split|join:'-'}}" role="button" aria-expanded="false" aria-controls="ingredients{{food.name.split|join:'-'}}">{{ food.name }}</div>
+
+          {% for category in food.categories.all %}
+              {{ category }}
+          {% endfor %}
+          <div class="collapse" id="ingredients{{food.name.split|join:'-'}}">
+            <div class="card card-body">
+              {{ food.ingredients }}
+            </div>
+          </div>
+        </div>
+        <span class="badge bg-primary rounded-pill">{{ food.rating }}</span>
+
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>
+
+{% endblock %}
